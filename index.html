@@ -174,9 +174,6 @@
   </div>
 
   <script>
-    // ==========================================
-    // 💡 教えていただいた既存のアプリたちを登録済み！
-    // ==========================================
     const APPS = [
       {
         id: 1,
@@ -226,7 +223,7 @@
         desc: "お菓子やスイーツを集めるキャッチゲーム",
         cat: "GAME",
         url: "https://ia7979068-maker.github.io/sweets/"
-      }
+      },
       {
         id: 8,
         title: "ナイトハイウェイ",
@@ -256,7 +253,7 @@
         const card = document.createElement('a');
         card.className = 'app-card';
         card.href = app.url;
-        card.target = "_blank"; // 外部URLなので別タブで開くように設定
+        card.target = "_blank";
 
         card.innerHTML = `
           <div class="app-info">
