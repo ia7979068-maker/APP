@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MINI APP PORTFOLIO 300</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #0b0e14;
+      color: #e6edf3;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      width: 100%;
+      max-width: 600px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 22px;
+      color: #00ffcc;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    p.sub {
+      font-size: 12px;
+      color: #8b949e;
+    }
+    .stats {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #58a6ff;
+      font-weight: bold;
+    }
+    /* 検索＆フィルター */
+    .filter-box {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #30363d;
+      background: #161b22;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+    input[type="text"]:focus {
+      border-color: #00ffcc;
+    }
+    select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #30363d;
+      background: #161b22;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+    /* アプリカード一覧 */
+    .app-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .app-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .app-card:active {
+      transform: scale(0.98);
+    }
+    .app-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .app-num {
+      font-size: 11px;
+      font-weight: bold;
+      color: #00ffcc;
+    }
+    .app-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #f0f6fc;
+    }
+    .app-desc {
+      font-size: 12px;
+      color: #8b949e;
+    }
+    .app-badge {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 10px;
+      background: #21262d;
+      color: #c9d1d9;
+      border: 1px solid #30363d;
+      width: fit-content;
+      margin-top: 4px;
+    }
+    .play-btn {
+      background: linear-gradient(135deg, #00ffcc, #0099ff);
+      color: #000;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 8px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+    .bmc-footer {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .bmc-link {
+      color: #ffdd00;
+      text-decoration: none;
+      font-size: 12px;
+      background: rgba(255, 221, 0, 0.1);
+      border: 1px solid #ffdd00;
+      padding: 6px 16px;
+      border-radius: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>MINI APP PORTFOLIO</h1>
+      <p class="sub">HTML5 / Canvas ミニツール＆ゲーム コレクション</p>
+      <div class="stats" id="stats">PROGRESS: 2 / 300 APPS</div>
+    </header>
+
+    <!-- 検索・カテゴリー絞り込み -->
+    <div class="filter-box">
+      <input type="text" id="search" placeholder="アプリ名・キーフレーズで検索..." oninput="filterApps()">
+      <select id="category" onchange="filterApps()">
+        <option value="ALL">すべて</option>
+        <option value="GAME">ゲーム</option>
+        <option value="PUZZLE">パズル</option>
+        <option value="TOOL">便利ツール</option>
+        <option value="NEETA">ネタ・お遊び</option>
+      </select>
+    </div>
+
+    <!-- アプリリスト表示エリア -->
+    <div class="app-list" id="app-list"></div>
+
+    <div class="bmc-footer">
+      <a href="https://www.buymeacoffee.com/yos999" target="_blank" rel="noopener noreferrer" class="bmc-link">
+        ☕ Support Creator
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 💡 新しいアプリを作ったら、この配列に追加するだけ！
+    // ==========================================
+    const APPS = [
+      {
+        id: 1,
+        title: "TOUGE DRIFT (サイド・X)",
+        desc: "トップダウン視点・慣性物理ドリフトアタックゲーム",
+        cat: "GAME",
+        url: "./drift.html" // 公開するアプリのファイル名またはURL
+      },
+      {
+        id: 2,
+        title: "PARKING MASTER (縦列駐車)",
+        desc: "ギチギチの駐車枠に精密操作でバック車庫入れするパズル",
+        cat: "PUZZLE",
+        url: "./parking.html"
+      }
+      /* 
+      // 3つ目以降はここに追加していきます
+      ,{
+        id: 3,
+        title: "ナイト・ハイウェイ",
+        desc: "夜の高速道路で隙間を縫うランゲーム",
+        cat: "GAME",
+        url: "./highway.html"
+      }
+      */
+    ];
+
+    function renderApps(list) {
+      const container = document.getElementById('app-list');
+      container.innerHTML = '';
+
+      if (list.length === 0) {
+        container.innerHTML = '<div style="text-align:center; color:#8b949e; padding:30px;">該当するアプリが見つかりません</div>';
+        return;
+      }
+
+      list.forEach(app => {
+        const card = document.createElement('a');
+        card.className = 'app-card';
+        card.href = app.url;
+
+        card.innerHTML = `
+          <div class="app-info">
+            <span class="app-num">#${String(app.id).padStart(3, '0')}</span>
+            <div class="app-title">${app.title}</div>
+            <div class="app-desc">${app.desc}</div>
+            <span class="app-badge">${app.cat}</span>
+          </div>
+          <div class="play-btn">PLAY ➔</div>
+        `;
+        container.appendChild(card);
+      });
+
+      document.getElementById('stats').innerText = `PROGRESS: ${APPS.length} / 300 APPS`;
+    }
+
+    function filterApps() {
+      const query = document.getElementById('search').value.toLowerCase();
+      const cat = document.getElementById('category').value;
+
+      const filtered = APPS.filter(app => {
+        const matchQuery = app.title.toLowerCase().includes(query) || app.desc.toLowerCase().includes(query);
+        const matchCat = (cat === 'ALL') || (app.cat === cat);
+        return matchQuery && matchCat;
+      });
+
+      renderApps(filtered);
+    }
+
+    // 初期表示
+    renderApps(APPS);
+  </script>
+</body>
+</html>
