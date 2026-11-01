@@ -44,7 +44,6 @@
       color: #58a6ff;
       font-weight: bold;
     }
-    /* 検索＆フィルター */
     .filter-box {
       display: flex;
       gap: 8px;
@@ -72,7 +71,6 @@
       font-size: 14px;
       outline: none;
     }
-    /* アプリカード一覧 */
     .app-list {
       display: flex;
       flex-direction: column;
@@ -152,10 +150,9 @@
     <header>
       <h1>MINI APP PORTFOLIO</h1>
       <p class="sub">HTML5 / Canvas ミニツール＆ゲーム コレクション</p>
-      <div class="stats" id="stats">PROGRESS: 2 / 300 APPS</div>
+      <div class="stats" id="stats">PROGRESS: 0 / 300 APPS</div>
     </header>
 
-    <!-- 検索・カテゴリー絞り込み -->
     <div class="filter-box">
       <input type="text" id="search" placeholder="アプリ名・キーフレーズで検索..." oninput="filterApps()">
       <select id="category" onchange="filterApps()">
@@ -167,7 +164,6 @@
       </select>
     </div>
 
-    <!-- アプリリスト表示エリア -->
     <div class="app-list" id="app-list"></div>
 
     <div class="bmc-footer">
@@ -179,33 +175,59 @@
 
   <script>
     // ==========================================
-    // 💡 新しいアプリを作ったら、この配列に追加するだけ！
+    // 💡 教えていただいた既存のアプリたちを登録済み！
     // ==========================================
     const APPS = [
       {
         id: 1,
-        title: "TOUGE DRIFT (サイド・X)",
-        desc: "トップダウン視点・慣性物理ドリフトアタックゲーム",
+        title: "F1ゲーム",
+        desc: "スピード感あふれるF1レースゲーム",
         cat: "GAME",
-        url: "./drift.html" // 公開するアプリのファイル名またはURL
+        url: "https://ia7979068-maker.github.io/Fone-rush-standalone/"
       },
       {
         id: 2,
-        title: "PARKING MASTER (縦列駐車)",
-        desc: "ギチギチの駐車枠に精密操作でバック車庫入れするパズル",
-        cat: "PUZZLE",
-        url: "./parking.html"
-      }
-      /* 
-      // 3つ目以降はここに追加していきます
-      ,{
-        id: 3,
-        title: "ナイト・ハイウェイ",
-        desc: "夜の高速道路で隙間を縫うランゲーム",
+        title: "バイクゲーム",
+        desc: "サイバーパンクテイストのバイクアクション",
         cat: "GAME",
-        url: "./highway.html"
+        url: "https://ia7979068-maker.github.io/cyberpunk-game/"
+      },
+      {
+        id: 3,
+        title: "シューティング",
+        desc: "迫力のスペースシューティングゲーム",
+        cat: "GAME",
+        url: "https://ia7979068-maker.github.io/inbeta/"
+      },
+      {
+        id: 4,
+        title: "ドリフトゲーム",
+        desc: "華麗なコーナーリングを決めるドリフトアクション",
+        cat: "GAME",
+        url: "https://ia7979068-maker.github.io/driftm-master/"
+      },
+      {
+        id: 5,
+        title: "リズムタップ",
+        desc: "音楽に合わせてタイミングよくタップするゲーム",
+        cat: "GAME",
+        url: "https://ia7979068-maker.github.io/spinner-runner999/"
+      },
+      {
+        id: 6,
+        title: "パーキングパズル",
+        desc: "狭いスペースに車を収める駐車パズル",
+        cat: "PUZZLE",
+        url: "https://ia7979068-maker.github.io/parking/"
+      },
+      {
+        id: 7,
+        title: "スイートキャッチ",
+        desc: "お菓子やスイーツを集めるキャッチゲーム",
+        cat: "GAME",
+        url: "https://ia7979068-maker.github.io/sweets/"
       }
-      */
+      // 8つ目以降はここに1行ずつ追加していくだけでOK！
     ];
 
     function renderApps(list) {
@@ -221,6 +243,7 @@
         const card = document.createElement('a');
         card.className = 'app-card';
         card.href = app.url;
+        card.target = "_blank"; // 外部URLなので別タブで開くように設定
 
         card.innerHTML = `
           <div class="app-info">
@@ -250,7 +273,6 @@
       renderApps(filtered);
     }
 
-    // 初期表示
     renderApps(APPS);
   </script>
 </body>
